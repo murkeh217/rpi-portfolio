@@ -37,6 +37,12 @@ const Header = () => {
               <Link href="#projects" className="text-gray-300 hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">
                 Projects
               </Link>
+              <Link href="#resume" className="text-gray-300 hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                Resume
+              </Link>
+              <Link href="#upcoming-projects" className="text-gray-300 hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                Upcoming
+              </Link>
               <Link href="#skills" className="text-gray-300 hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">
                 Skills
               </Link>
@@ -112,6 +118,20 @@ const Header = () => {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Projects
+              </Link>
+              <Link
+                href="#upcoming-projects"
+                className="text-gray-300 hover:text-blue-400 block px-3 py-2 rounded-md text-base font-medium transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Upcoming
+              </Link>
+              <Link
+                href="#resume"
+                className="text-gray-300 hover:text-blue-400 block px-3 py-2 rounded-md text-base font-medium transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Resume
               </Link>
               <Link
                 href="#skills"

@@ -1,15 +1,15 @@
 
 const Hero = () => {
   return (
-    <section id="home" className="pt-20 min-h-screen flex items-center bg-gradient-to-br from-gray-100 to-gray-50">
+    <section id="home" className="pt-20 min-h-screen flex items-center bg-gradient-to-br from-gray-900 to-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="lg:grid lg:grid-cols-12 lg:gap-8">
           <div className="sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left">
-            <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+            <h1 className="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl">
               <span className="block xl:inline">Hi, I&apos;m</span>{' '}
               <span className="block text-blue-600 xl:inline">Murtaza</span>
             </h1>
-            <p className="mt-3 text-base text-gray-600 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
+            <p className="mt-3 text-base text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
               A passionate Unity3D Game Developer based in India with a strong focus on game development. 
               I bring a multidisciplinary skill set with experience in web design and 3D modeling, 
               crafting engaging games with distinctive art styles and mechanics.

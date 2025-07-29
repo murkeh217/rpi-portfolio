@@ -3,6 +3,8 @@ import Footer from '../components/Footer';
 import Hero from '../components/Hero';
 import About from '../components/About';
 import Projects from '../components/Projects';
+import UpcomingProjects from '../components/UpcomingProjects';
+import Resume from '../components/Resume';
 import Skills from '../components/Skills';
 import Contact from '../components/Contact';
 
@@ -14,6 +16,8 @@ export default function Home() {
         <Hero />
         <About />
         <Projects />
+        <UpcomingProjects />
+        <Resume />
         <Skills />
         <Contact />
       </main>
