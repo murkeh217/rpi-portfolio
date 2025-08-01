@@ -36,7 +36,7 @@ const Resume = () => {
                   
                   <p className="text-gray-600 mb-6">
                     Get a comprehensive overview of my professional journey, including my experience in Unity3D game development, 
-                    web design, 3D modeling, and all the exciting projects I've worked on.
+                    web design, 3D modeling, and all the exciting projects I&apos;ve worked on.
                   </p>
 
                   <div className="grid grid-cols-2 gap-4 text-sm text-gray-600 mb-6">

@@ -92,7 +92,7 @@ const UpcomingProjects = () => {
             Upcoming Projects
           </p>
           <p className="mt-4 max-w-2xl text-xl text-gray-300 lg:mx-auto">
-            Get a sneak peek at the exciting projects I'm currently working on. These are yet to be made live.
+            Get a sneak peek at the exciting projects I&apos;m currently working on. These are yet to be made live.
           </p>
         </div>
 

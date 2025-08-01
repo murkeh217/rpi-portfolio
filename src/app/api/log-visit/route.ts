@@ -1,9 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import useragent from 'express-useragent';
-import geoip from 'geoip-lite';
 import sqlite3 from 'sqlite3';
 import fs from 'fs';
 import path from 'path';
+
+// Dynamically import geoip-lite to avoid build issues
+let geoip: typeof import('geoip-lite') | null = null;
+try {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  geoip = require('geoip-lite');
+} catch (error) {
+  console.warn('GeoIP module not available during build:', error);
+}
 
 // Initialize SQLite database
 const dbPath = path.join(process.cwd(), 'visits.db');
@@ -29,7 +37,7 @@ export async function POST(request: NextRequest) {
     // Get client IP
     const forwarded = request.headers.get('x-forwarded-for');
     const realIp = request.headers.get('x-real-ip');
-    let ip = forwarded ? forwarded.split(',')[0] : realIp || 'localhost';
+    const ip = forwarded ? forwarded.split(',')[0] : realIp || 'localhost';
     
     // Handle localhost development
     const isLocalhost = ip === 'localhost' || ip === '127.0.0.1' || ip === '::1' || ip.startsWith('192.168.') || ip.startsWith('10.') || ip.startsWith('172.');
@@ -40,7 +48,7 @@ export async function POST(request: NextRequest) {
     
     // Get location from IP (skip for localhost)
     let geo = null;
-    if (!isLocalhost) {
+    if (!isLocalhost && geoip) {
       try {
         geo = geoip.lookup(ip);
       } catch (geoError) {
@@ -76,9 +84,31 @@ export async function POST(request: NextRequest) {
       }
     );
 
-    return NextResponse.json({ success: true, message: 'Visit logged successfully' });
+    const response = NextResponse.json({ success: true, message: 'Visit logged successfully' });
+    
+    // Add no-cache headers to API response
+    response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0, private');
+    response.headers.set('Pragma', 'no-cache');
+    response.headers.set('Expires', '0');
+    response.headers.set('Surrogate-Control', 'no-store');
+    response.headers.set('Vary', '*');
+    
+    return response;
   } catch (error) {
     console.error('Error logging visit:', error);
-    return NextResponse.json({ success: false, error: 'Failed to log visit' }, { status: 500 });
+    const errorResponse = NextResponse.json({ success: false, error: 'Failed to log visit' }, { status: 500 });
+    
+    // Add no-cache headers to error response
+    errorResponse.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0, private');
+    errorResponse.headers.set('Pragma', 'no-cache');
+    errorResponse.headers.set('Expires', '0');
+    errorResponse.headers.set('Surrogate-Control', 'no-store');
+    errorResponse.headers.set('Vary', '*');
+    
+    // Add iframe protection headers
+    errorResponse.headers.set('X-Frame-Options', 'DENY');
+    errorResponse.headers.set('Content-Security-Policy', "frame-ancestors 'none'");
+    
+    return errorResponse;
   }
 }

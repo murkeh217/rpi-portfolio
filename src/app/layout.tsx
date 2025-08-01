@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import VisitTracker from "../components/VisitTracker";
+import NoCache from "../components/NoCache";
+import IframeBreaker from "../components/IframeBreaker";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,6 +34,12 @@ export const metadata: Metadata = {
     description: "Full-stack developer passionate about creating amazing web experiences.",
     creator: "@yourusername",
   },
+  // Add no-cache meta tags
+  other: {
+    'cache-control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0',
+    'pragma': 'no-cache',
+    'expires': '0',
+  },
 };
 
 export default function RootLayout({
@@ -44,6 +52,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <IframeBreaker />
+        <NoCache />
         <VisitTracker />
         {children}
       </body>
