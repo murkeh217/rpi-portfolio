@@ -1,4 +1,3 @@
-import Image from "next/image";
 
 const Hero = () => {
   return (
@@ -36,10 +35,11 @@ const Hero = () => {
             <div className="relative mx-auto w-full rounded-lg shadow-lg lg:max-w-md">
               <div className="relative block w-full bg-gray-800 rounded-lg overflow-hidden">
                 <div className="aspect-w-10 aspect-h-7 sm:aspect-w-16 sm:aspect-h-10 lg:aspect-w-1 lg:aspect-h-1">
-                  <Image src="/images/intro-bg.jpg" 
+                  <img 
+                    src="/images/intro-bg.jpg" 
                     alt="Murtaza Kanorwala" 
                     className="w-full h-80 object-cover rounded-lg"
-                  / />
+                  />
                 </div>
               </div>
             </div>

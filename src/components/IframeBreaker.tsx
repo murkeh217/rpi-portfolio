@@ -8,7 +8,7 @@ export default function IframeBreaker() {
     const isInIframe = () => {
       try {
         return window.self !== window.top;
-      } catch (_e) {
+      } catch (e) {
         // If we can't access window.top due to cross-origin restrictions,
         // we're likely in an iframe
         return true;
@@ -25,7 +25,7 @@ export default function IframeBreaker() {
           // Fallback: replace the current location
           window.location.replace(window.location.href);
         }
-      } catch (_e) {
+      } catch (e) {
         // If cross-origin restrictions prevent access to top window,
         // try alternative methods
         console.warn('Cannot access parent frame due to cross-origin restrictions');

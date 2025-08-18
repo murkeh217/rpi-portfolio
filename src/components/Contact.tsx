@@ -10,15 +10,15 @@ const Contact = () => {
     message: ''
   });
 
-  const handleChange = (_e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
-      [_e.target.name]: _e.target.value
+      [e.target.name]: e.target.value
     });
   };
 
-  const handleSubmit = (_e: React.FormEvent) => {
-    _e.preventDefault();
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
     // Handle form submission here
     console.log('Form submitted:', formData);
     // You can integrate with emailjs, netlify forms, or your own backend

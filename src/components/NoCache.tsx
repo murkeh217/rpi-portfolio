@@ -18,7 +18,7 @@ export default function NoCache() {
         const separator = resource.includes('?') ? '&' : '?';
         const newResource = `${resource}${separator}${cacheBuster}`;
         
-        // Add no-cache headers to _request
+        // Add no-cache headers to request
         const newConfig = {
           ...config,
           headers: {
