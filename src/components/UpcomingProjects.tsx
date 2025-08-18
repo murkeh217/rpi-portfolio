@@ -1,3 +1,4 @@
+import Image from "next/image";
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -110,11 +111,10 @@ const UpcomingProjects = () => {
                 >
                   <div className="relative h-96 overflow-hidden">
                     {/* GIF Display */}
-                    <img 
-                      src={project.gif} 
+                    <Image src={project.gif} 
                       alt={project.title}
                       className="w-full h-full object-contain"
-                    />
+                    / />
                     
                     {/* Status Badge */}
                     <div className="absolute top-4 left-4">

@@ -1,3 +1,4 @@
+import Image from "next/image";
 'use client';
 
 import { useState } from 'react';
@@ -16,11 +17,10 @@ const Header = () => {
         <div className="flex justify-between items-center py-4">
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center space-x-2 text-2xl font-bold text-white hover:text-blue-400 transition-colors">
-              <img 
-                src="/images/mk.png" 
+              <Image src="/images/mk.png" 
                 alt="MK Logo" 
                 className="w-8 h-8 rounded-full"
-              />
+              / />
               <span>Portfolio</span>
             </Link>
           </div>
