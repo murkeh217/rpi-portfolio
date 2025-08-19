@@ -11,14 +11,8 @@ export function middleware(_request: NextRequest) {
   response.headers.set('Expires', '0');
   response.headers.set('Surrogate-Control', 'no-store');
   
-  // Add ETag to prevent conditional requests from being cached
-  response.headers.set('ETag', `"${Date.now()}-${Math.random()}"`);
-  
   // Add Vary header to prevent proxy caching
   response.headers.set('Vary', '*');
-  
-  // Add Last-Modified header set to current time to prevent caching
-  response.headers.set('Last-Modified', new Date().toUTCString());
   
   // Prevent iframe embedding
   response.headers.set('X-Frame-Options', 'DENY');

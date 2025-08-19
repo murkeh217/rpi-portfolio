@@ -86,22 +86,9 @@ export default function IframeBreaker() {
       }
     };
 
-    // Additional iframe detection methods
-    const detectIframeByDimensions = () => {
-      // Check if window dimensions suggest iframe
-      const isSmallWindow = window.innerWidth < screen.width || window.innerHeight < screen.height;
-      const hasScrollbars = window.innerWidth !== document.documentElement.clientWidth;
-      return isSmallWindow && !hasScrollbars;
-    };
-
-    const detectIframeByReferrer = () => {
-      // Check if there's a referrer that's different from current origin
-      return document.referrer && new URL(document.referrer).origin !== window.location.origin;
-    };
-
-    // Comprehensive iframe detection
+    // Use only the most reliable iframe detection method
     const isLikelyInIframe = () => {
-      return isInIframe() || detectIframeByDimensions() || detectIframeByReferrer();
+      return isInIframe();
     };
 
     // Check immediately
@@ -110,46 +97,16 @@ export default function IframeBreaker() {
       breakOutOfIframe();
     }
 
-    // Also set up a periodic check in case of dynamic iframe injection
-    let checkCount = 0;
-    const intervalId = setInterval(() => {
-      checkCount++;
-      
-      if (isLikelyInIframe()) {
-        console.warn('Iframe detected during periodic check! Breaking out...');
-        breakOutOfIframe();
-        clearInterval(intervalId);
-      }
-      
-      // Stop checking after 10 attempts (5 seconds)
-      if (checkCount >= 10) {
-        clearInterval(intervalId);
-      }
-    }, 500);
+    // Remove periodic checks to prevent false positives
+    let intervalId: NodeJS.Timeout | null = null;
 
-    // Set up event listeners for iframe detection
-    const handleResize = () => {
-      if (isLikelyInIframe()) {
-        breakOutOfIframe();
-      }
-    };
-
-    const handleMessage = (event: MessageEvent) => {
-      // Detect if we're receiving messages from a parent frame
-      if (event.source !== window && event.source === window.parent) {
-        console.warn('Message from parent frame detected - likely in iframe');
-        breakOutOfIframe();
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-    window.addEventListener('message', handleMessage);
+    // Remove event listeners that can cause false positives
 
     // Cleanup
     return () => {
-      clearInterval(intervalId);
-      window.removeEventListener('resize', handleResize);
-      window.removeEventListener('message', handleMessage);
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
     };
   }, []);
 
