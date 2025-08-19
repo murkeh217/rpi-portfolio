@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -16,9 +17,11 @@ const Header = () => {
         <div className="flex justify-between items-center py-4">
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center space-x-2 text-2xl font-bold text-white hover:text-blue-400 transition-colors">
-              <img 
+              <Image 
                 src="/images/mk.png" 
                 alt="MK Logo" 
+                width={32}
+                height={32}
                 className="w-8 h-8 rounded-full"
               />
               <span>Portfolio</span>

@@ -35,18 +35,19 @@ export default function NoCache() {
       return originalFetch(...args);
     };
     
-    // Prevent back/forward cache (bfcache)
+    // Prevent back/forward cache (bfcache) without aggressive reloading
     const preventBfCache = () => {
-      // Force page reload on back/forward navigation
-      window.addEventListener('pageshow', (event) => {
-        if (event.persisted) {
-          window.location.reload();
-        }
-      });
-      
-      // Add unload handler to prevent bfcache
+      // Add unload handler to prevent bfcache (but don't force reload)
       window.addEventListener('beforeunload', () => {
         // This prevents the page from being stored in bfcache
+      });
+      
+      // Optional: Add a more gentle approach for cache busting
+      window.addEventListener('pageshow', (event) => {
+        if (event.persisted) {
+          // Instead of reloading, just log or handle cache state
+          console.log('Page loaded from cache, but not forcing reload');
+        }
       });
     };
     
